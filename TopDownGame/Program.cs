@@ -23,10 +23,10 @@ Vector2 movement = new Vector2(0.1f, 0.1f);
 Color hotPink = new Color(255, 105, 180, 255);
 
 
-Texture2D characterImage = Raylib.LoadTexture("champ.png");
+Texture2D characterImage = Raylib.LoadTexture("MainDino.png");
 Rectangle characterRect = new Rectangle(10, 10, 32, 32);
-characterRect.width = 32;
-characterRect.height = 32;
+characterRect.width = characterImage.width;
+characterRect.height = characterImage.height;
 
 float speed = 5;
 
@@ -62,6 +62,12 @@ while (!Raylib.WindowShouldClose())
   characterRect.x += movement.X;
   characterRect.y += movement.Y;
 
+  if (Raylib.CheckCollisionRecs(characterRect, doorRect))
+  {
+    Console.WriteLine("Hey!");
+    Points++
+  }
+
   // x++;
   floorY += floorSpeedY;
   if (floorY < 0)
@@ -84,7 +90,8 @@ while (!Raylib.WindowShouldClose())
   Raylib.BeginDrawing();
   if (scene == "start")
   {
-    Texture2D StartScreen = Raylib.LoadTexture("champ.png");
+    Texture2D StartScreen = Raylib.LoadTexture("nerd.png");
+
 
     if (Raylib.GetKeyPressed() != 0)
     {
@@ -99,6 +106,8 @@ while (!Raylib.WindowShouldClose())
 
     Raylib.DrawRectangleRec(characterRect, Color.BLUE);
     Raylib.DrawTexture(characterImage, (int)characterRect.x, (int)characterRect.y, Color.WHITE);
+
+    Raylib.DrawText("Points: ", 10, 10, 32, Color.WHITE);
 
   }
   Raylib.EndDrawing();
